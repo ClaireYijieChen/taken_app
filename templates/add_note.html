@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+This is where you would add a note, IF I HAD ONE!
+<form action="/notes/submit_note" method="post">
+{% csrf_token %}
+{% for field in note %}
+<br />
+    {{ field.label_tag }}: {{ field }}
+{% endfor %}
+<p><input type="submit" value="submit" /></p>
+</form>
+{% endblock %}
