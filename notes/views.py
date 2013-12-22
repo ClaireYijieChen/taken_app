@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from notes.forms import NoteForm
 from notes.models import Note
 import os, os.path
+from datetime import datetime
 
 # Create your views here.
 
@@ -31,9 +32,16 @@ def all_notes(request):
 def createNewNote(request):
     if request.method == "POST":
         noteId = getNoteId()
-        location = makeNoteLocation(request.POST["noteBody"], noteId)
+        location = makeNoteLocation(request.POST['noteBody'], noteId)
         tags = splitNoteTags(request.POST["noteTags"])
-        mynote = Note(note_id = noteId, noteName = request.POST["noteName"], noteLocation = location, noteTags = tags, noteColor = request.POST["noteTags"], noteCreated = request.POST["noteCreated"], noteEdited = request.POST["noteEdited"])
+        mynote = Note(note_id = noteId, noteName = request.POST["noteName"], noteLocation = location, noteTags = tags, noteColor = request.POST["noteTags"], noteCreated = datetime.now(), noteEdited = datetime.now())
+        print mynote.note_id
+        print mynote.noteName
+        print mynote.noteLocation
+        print mynote.noteTags
+        print mynote.noteColor
+        print mynote.noteCreated
+        print str(os.getcwd())[-7::]
         mynote.save()
         return HttpResponse("You saved a note!")
     else:
@@ -44,7 +52,7 @@ def splitNoteTags(tagString):
 
 def makeNoteLocation(body, noteId):
     sep = os.sep
-    if os.getcwd != "library":
+    if os.getcwd()[-7::] != "library":
         os.chdir("library")
     location = str(noteId)+"_"+"0.txt"
     f = open(location, "w")

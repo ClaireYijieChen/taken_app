@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
 This is where you would add a note, IF I HAD ONE!
-<form action="/notes/submit_note" method="post">
+<form action="/notes/submit_note" method="post" id="noteForm">
 {% csrf_token %}
-{% for field in note %}
+Note Name: <input type="text" name="noteName" id="noteName" class="form">
 <br />
-    {{ field.label_tag }}: {{ field }}
-{% endfor %}
-<p><input type="submit" value="submit" /></p>
+Note Tags: <input type="text" name="noteTags" id="noteTags" class="form">
+<br />
+Note Body: <div id="noteBody" class="form body" contenteditable="true" style="width:400px;border:1px solid black;resize:both;overflow:auto;">Put your note here</div>
+
+<input type="hidden" name="noteBody" id="noteBodyArea" class="form body">
+<br />
+Note Color: <input type="color" name="noteColor" id="noteColor" class="form">
+<br />
+<p><input type="submit" value="submit" id="submitButton" /></p>
 </form>
+
+<script type="text/javascript">
+    $('#submitButton').click(function() {
+        var mysave = $('#noteBody').html();
+        $('#noteBodyArea').val(mysave);
+    })
+</script>
 {% endblock %}
