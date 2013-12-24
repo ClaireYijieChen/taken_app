@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-This is where you would add a note, IF I HAD ONE!
+<title>New Note</title>
+</head>
+<body>
 <form action="/notes/submit_note" method="post" id="noteForm">
 {% csrf_token %}
 Note Name: <input type="text" name="noteName" id="noteName" class="form">

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load getNotes %}
+{% block content %}
+<title>All notes</title>
+</head>
+<body>
+View all of your notes here:
+<div id="gridContainer" style="width:960px;border:1px solid black;position:relative;padding-top:">
+{% for note in Note %}
+<div class="note" style="border:1px solid black;width:300px;height:300px;overflow:hidden;">
+<span class="noteName" style="font-size:16pt;font-weight:bold;">{{ note.noteName }}</span>
+<br />
+{{note.noteTags}}
+<br />
+<hr>
+{{ note.noteLocation|getNoteBody|safe }}
+
+</div>
+{% endfor %}
+</div>
+<script type="text/javascript">
+    $('#gridContainer').gridly({
+  base: 300, // px 
+  gutter: 20, // px
+  columns: 3
+});
+
+</script>
+{% endblock %}
