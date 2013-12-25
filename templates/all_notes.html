@@ -4,26 +4,67 @@
 <title>All notes</title>
 </head>
 <body>
-View all of your notes here:
-<div id="gridContainer" style="width:960px;border:1px solid black;position:relative;padding-top:">
-{% for note in Note %}
-<div class="note" style="border:1px solid black;width:300px;height:300px;overflow:hidden;">
-<span class="noteName" style="font-size:16pt;font-weight:bold;">{{ note.noteName }}</span>
-<br />
-{{note.noteTags}}
-<br />
-<hr>
-{{ note.noteLocation|getNoteBody|safe }}
+    View all of your notes here:
+    <br />
+    <br />
+    <div class="gridContainer">
+        {% for note in Note %}
+            <div class="note large">
+                {% for x in "this"|returnPosList %}
+                <div class="controller {{x}}"></div>
+                {% endfor %}
+                <span class="noteName">{{ note.noteName }}</span>
+                <br />
+                {{note.noteTags}}
+                <br />
+                <br />
+                {{ note.noteLocation|getNoteBody|safe }}
+            </div>
+        {% endfor %}
+    </div>
+    <script type="text/javascript">
+    var base = 140;
+    var gutter = 20;
+    var columns = 6;
+        $('.gridContainer').gridly({
+      base: base, // px 
+      gutter: gutter, // px
+      columns: columns
+    });
 
-</div>
-{% endfor %}
-</div>
-<script type="text/javascript">
-    $('#gridContainer').gridly({
-  base: 300, // px 
-  gutter: 20, // px
-  columns: 3
-});
+    defaultWidth = 300;
 
-</script>
+   $(".controller.right").mousedown( function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+    });
+    $(".controller.right").mousedown(function(event) {
+        var note = $(this).parent();
+        var container = $(this).parent().parent();
+        gridlyLayout = $(document).bind("mousemove",function(e){ 
+            e.preventDefault();
+            e.stopPropagation();
+            gridWidth = columns * (gutter * base);
+            noteWidth = note.width();
+            if (e.pageX - container.position().left > note.position().left + noteWidth + base + gutter) {
+                note.width(note.width() + base + gutter);
+                return $('.gridContainer').gridly("layout");
+            }
+        });
+        return gridlyLayout
+    });
+
+    $(document).mouseup(function(event) {
+        $(document).unbind("mousemove");
+    });
+
+    $(document).on("click", ".controller.left", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        note = $(this).parent();
+        note.width(defaultWidth);
+        return $('.gridContainer').gridly("layout");
+    });
+    </script>
 {% endblock %}

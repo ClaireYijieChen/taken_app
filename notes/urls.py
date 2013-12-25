@@ -11,5 +11,5 @@ urlpatterns = patterns('notes.views',
     url(r'^(?P<note_id>\d+)/$', 'note_info'),
     url(r'^add$', 'add_note'),
     url(r'^all/$', 'all_notes'),
-    url(r'^', 'all_notes'),
+    url(r'^$', 'all_notes'),
 )

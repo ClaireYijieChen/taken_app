@@ -1,0 +1,94 @@
+:root {
+    var-main-bg-color:#ff0000;
+    var-note-width-base:300px;
+    var-note-gutter:20px;
+}
+
+body {
+    background-color: #72bcd4;
+}
+
+.note {
+    background-color: #62acc4;
+    width:var(note-width-base);
+    height:300px;
+    overflow:hidden;
+}
+
+.note.double {
+    width: calc(2 * var(note-width-base) + var(note-gutter));
+    border:1px solid black;
+    height:300px;
+    overflow:hidden;
+}
+
+.note.full {
+    width: calc(3 * var(note-width-base) + 2 * var(note-gutter)); 
+    overflow:hidden;
+    background-color: #62acc4
+}
+
+.noteName {
+     font-size:24pt;
+     font-weight:bold;
+}
+
+.gridContainer {
+    width:960px;
+    position:relative;
+}
+
+.centered {
+    width: 800px;
+    top:0px;
+    left:auto;
+    right: auto;
+}
+
+.note.large {
+    width: 300px;
+    height: 300px;
+}
+
+.note.small {
+    width: 140px;
+    height: 140px;
+}
+
+.note .top {
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 20px;
+}
+
+.note .bottom {
+    position: absolute;
+    bottom:0px;
+    width: 100%;
+    height: 20px;
+}
+
+.note .right {
+    position: absolute;
+    right: 0px;
+    width: 20px;
+    height: 100%;
+}
+
+.note .left {
+    position: absolute;
+    left:0px;
+    width: 20px;
+    height: 100%;
+}
+
+.controller {
+    z-index: 2;
+}
+
+.controller:hover {
+    background-color: #000000;
+    opacity: .2;
+    z-index: 2;
+}

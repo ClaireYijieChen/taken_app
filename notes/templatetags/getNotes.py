@@ -15,3 +15,6 @@ def getNoteBody(noteLocation):
     os.chdir('..')
     return noteBody
 
+@register.filter
+def returnPosList(x):
+    return ["top", "left", "bottom", "right"]

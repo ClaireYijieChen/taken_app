@@ -16,9 +16,6 @@ def test(request, *args, **kwargs):
 def add_note(request):
     #
     return render(request, "add_note.html", {"note": NoteForm})
-    """###################################################################
-    
-    ###################################################################"""
 
 def note_info(request, note_id):
     #
@@ -27,30 +24,26 @@ def note_info(request, note_id):
 
 def all_notes(request):
     #
-    return HttpResponse("This is all of your notes")
+    return render(request, "all_notes.html", {"Note": Note.objects.all()})
 
 def createNewNote(request):
+    #
     if request.method == "POST":
         noteId = getNoteId()
         location = makeNoteLocation(request.POST['noteBody'], noteId)
         tags = splitNoteTags(request.POST["noteTags"])
         mynote = Note(note_id = noteId, noteName = request.POST["noteName"], noteLocation = location, noteTags = tags, noteColor = request.POST["noteTags"], noteCreated = datetime.now(), noteEdited = datetime.now())
-        print mynote.note_id
-        print mynote.noteName
-        print mynote.noteLocation
-        print mynote.noteTags
-        print mynote.noteColor
-        print mynote.noteCreated
-        print str(os.getcwd())[-7::]
         mynote.save()
         return HttpResponse("You saved a note!")
     else:
         return HttpResponse("Nope!")
     
 def splitNoteTags(tagString):
+    #
     return tagString
 
 def makeNoteLocation(body, noteId):
+    #
     sep = os.sep
     if os.getcwd()[-7::] != "library":
         os.chdir("library")
@@ -58,10 +51,11 @@ def makeNoteLocation(body, noteId):
     f = open(location, "w")
     f.write(body)
     f.close()
+    os.chdir('..')
     return location
 
-
 def getNoteId():
+    #
     note = Note
     totalNotes = len(note.objects.all())
     print totalNotes

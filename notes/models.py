@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+import os, os.path
 
 # Create your models here.
 
@@ -11,6 +12,8 @@ class Note(models.Model):
     noteColor = models.CharField(max_length = 8)
     noteCreated = models.DateTimeField()
     noteEdited = models.DateTimeField()
+
+
 
 
 class File(models.Model):

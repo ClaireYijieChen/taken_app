@@ -8,3 +8,4 @@ class NoteForm(forms.Form):
     noteColor = forms.CharField()
     noteCreated = forms.DateTimeField(initial = datetime.now)
     noteEdited = forms.DateTimeField(initial = datetime.now)
+    noteType = forms.CharField()
